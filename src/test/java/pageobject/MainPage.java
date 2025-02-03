@@ -12,8 +12,6 @@ public class MainPage {
 
     public By firstImportantQuestion = By.xpath("//*[@id=\"accordion__heading-0\"]");
 
-    public By firstImportantQuestionAnswer = By.xpath("//*[@id=\"accordion__panel-0\"]/p");
-
     public MainPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -22,19 +20,20 @@ public class MainPage {
         driver.findElement(orderButton).click();
     }
 
-    public void scrollToFirstImportantQuestion() {
+    public void scrollToImportantQuestionsBlock() {
         ((JavascriptExecutor)driver).executeScript(
                 "arguments[0].scrollIntoView();",
                 driver.findElement(firstImportantQuestion)
         );
     }
 
-    public void clickFirstImportantQuestion() {
-        driver.findElement(firstImportantQuestion).click();
-    }
-
-    public String getAnswerOfFirstImportantQuestion() {
-        return driver.findElement(firstImportantQuestionAnswer).getText();
+    public String getAnswerOfImportantQuestion(String questionNumber) {
+        driver.findElement(By.xpath(
+                "//*[@id=\"accordion__heading-" + questionNumber +"\"]"
+        )).click();
+        return driver.findElement(By.xpath(
+                "//*[@id=\"accordion__panel-" + questionNumber + "\"]/p"
+        )).getText();
     }
 
 }

@@ -13,8 +13,6 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Parameterized.class)
 public class OrderTest {
 
-    WebDriver driver;
-    private final String driverValue;
     private final String name;
     private final String lastName;
     private final String address;
@@ -25,8 +23,7 @@ public class OrderTest {
     private final String color;
     private final Boolean comment;
 
-    public OrderTest(String driverValue,
-                     String name,
+    public OrderTest(String name,
                      String lastName,
                      String address,
                      String subway,
@@ -36,7 +33,6 @@ public class OrderTest {
                      String color,
                      Boolean comment
     ) {
-        this.driverValue = driverValue;
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -52,7 +48,6 @@ public class OrderTest {
     public static Object[][] getOrderData() {
         return new Object[][] {
                 {
-                        "chrome",
                         "Жора",
                         "Корнев",
                         "Адрес1",
@@ -65,7 +60,6 @@ public class OrderTest {
                 }
                 ,
                 {
-                        "firefox",
                         "Катя",
                         "Брусникина",
                         "Адрес2",
@@ -81,10 +75,7 @@ public class OrderTest {
 
     @Test
     public void checkOrder() throws InterruptedException {
-        if (driverValue.equals("chrome"))
-            driver = new ChromeDriver();
-        else if (driverValue.equals("firefox"))
-            driver = new FirefoxDriver();
+        WebDriver driver = new FirefoxDriver();
 
         driver.get(TestConstants.APP_URL);
 
